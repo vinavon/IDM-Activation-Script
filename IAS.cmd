@@ -548,20 +548,6 @@ echo You can download it from  https://www.internetdownloadmanager.com/download.
 goto done
 )
 
-:: Internet check with internetdownloadmanager.com ping and port 80 test
-
-set _int=
-for /f "delims=[] tokens=2" %%# in ('ping -n 1 internetdownloadmanager.com') do (if not [%%#]==[] set _int=1)
-
-if not defined _int (
-%psc% "$t = New-Object Net.Sockets.TcpClient;try{$t.Connect("""internetdownloadmanager.com""", 80)}catch{};$t.Connected" | findstr /i "true" %nul1% || (
-call :_color %Red% "Unable to connect internetdownloadmanager.com, aborting..."
-goto done
-)
-call :_color %Gray% "Ping command failed for internetdownloadmanager.com"
-echo:
-)
-
 for /f "skip=2 tokens=2*" %%a in ('reg query "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion" /v ProductName 2^>nul') do set "regwinos=%%b"
 for /f "skip=2 tokens=2*" %%a in ('reg query "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" /v PROCESSOR_ARCHITECTURE') do set "regarch=%%b"
 for /f "tokens=6-7 delims=[]. " %%i in ('ver') do if "%%j"=="" (set fullbuild=%%i) else (set fullbuild=%%i.%%j)
@@ -684,11 +670,11 @@ echo:
 set "file=%SystemRoot%\Temp\temp.png"
 set _fileexist=
 
-set link=https://www.internetdownloadmanager.com/images/idm_box_min.png
+set link=https://www.google.com/favicon.ico
 call :download
-set link=https://www.internetdownloadmanager.com/register/IDMlib/images/idman_logos.png
+set link=https://www.google.com/robots.txt
 call :download
-set link=https://www.internetdownloadmanager.com/pictures/idm_about.png
+set link=https://www.google.com/sitemap.xml
 call :download
 
 echo:
